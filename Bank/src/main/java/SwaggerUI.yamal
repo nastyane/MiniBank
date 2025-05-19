@@ -1,0 +1,108 @@
+openapi: "3.1.0"
+info:
+  title: "enterprise_development API"
+  description: "enterprise_development API"
+  version: "1.0.0"
+servers:
+  - url: "https://enterprise_development"
+paths:
+  /api/accounts/create:
+    post:
+      summary: "POST api/accounts/create"
+      operationId: "create"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAccountRequest"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+  /api/accounts/{accountId}:
+    get:
+      summary: "GET api/accounts/{accountId}"
+      operationId: "get"
+      parameters:
+        - name: "accountId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+  /api/accounts/cash-in:
+    post:
+      summary: "POST api/accounts/cash-in"
+      operationId: "cashIn"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CashInAccountRequest"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+  /api/accounts/cash-out:
+    post:
+      summary: "POST api/accounts/cash-out"
+      operationId: "cashOut"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CashOutAccountRequest"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+components:
+  schemas:
+    CreateAccountRequest:
+      type: "object"
+      properties:
+        userId:
+          type: "integer"
+          format: "int32"
+        balance:
+          type: "number"
+          format: "double"
+        currency:
+          type: "string"
+    CashInAccountRequest:
+      type: "object"
+      properties:
+        accountId:
+          type: "integer"
+          format: "int64"
+        amount:
+          type: "integer"
+          format: "int64"
+    CashOutAccountRequest:
+      type: "object"
+      properties:
+        accountId:
+          type: "integer"
+          format: "int64"
+        amount:
+          type: "integer"
+          format: "int64"
